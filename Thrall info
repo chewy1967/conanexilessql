@@ -1,0 +1,9 @@
+select  pb.name as player_guild_name,*  from item_inventory as i
+inner join item_properties ip on ip.owner_id = i.owner_id and ip.item_id = i.item_id
+inner join actor_position ap on i.owner_id = ap.id
+inner join buildings b on b.object_id = ap.id
+inner join 
+(Select guildid as pb_id, name from guilds
+Union
+select id, char_name from characters) pb on b.owner_id = pb_id
+where ip.name = 'ThrallCharLayout'
